@@ -9,6 +9,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 // "flappy bird"
 // - create obstacles that have an "overlap" event varying in height.  Use of images might be necessary instead of just sprites.
 //  - only one button will do anything (space bar or A) and it will make the bird flap or fly.
+let hook: Sprite = null
 let bober: Dart = null
 scene.setBackgroundImage(img`
     5555555555555555555999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -133,22 +134,22 @@ scene.setBackgroundImage(img`
     6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
     `)
 let fisher = sprites.create(img`
-    . . . . . . f f f . . . . . . . 
-    . . . . . f f f f f f . . . . . 
-    . . . . . f f f f f f . . . . . 
-    . . . . . f f f f f f . . . . . 
-    . . . . . f f f f f f . . . . . 
-    . . . . . . f f f f . . . . . . 
-    . . . . . . . f . . . . . . . . 
-    . . . . . . . f f f f f f . . . 
-    . . . . . . . f . . . . . . . . 
-    . . . . . . . f f f f f f . . . 
-    . . . . . . . f . . . . . . . . 
-    . . . . . . f f . . . . . . . . 
-    . . . . . f f . f . . . . . . . 
-    . . . . . f . . f f . . . . . . 
-    . . . . . f . . . f . . . . . . 
-    . . . . . . . . . f f . . . . . 
+    e . . . . . . f f f . . . . . . 
+    e . . . . f f f f f f . . . . . 
+    e e . . . f f f f f f . . . . . 
+    . e . . . f f f f f f . . . . . 
+    . e . . . f f f f f f . . . . . 
+    . e . . . . f f f f . . . . . . 
+    . e e . . . . . f . . . . . . . 
+    . . e f f f f f f . . . . . . . 
+    . . e . . . . . f . . . . . . . 
+    . 1 e f f f f f f . . . . . . . 
+    . 1 1 e . . . . f . . . . . . . 
+    . . . e . . . . f f . . . . . . 
+    . . . e . . . f . f f . . . . . 
+    . . . . . . f f . . f . . . . . 
+    . . . . . . f . . . f . . . . . 
+    . . . . . f f . . . . . . . . . 
     `, SpriteKind.Player)
 fisher.setPosition(139, 40)
 bober = darts.create(img`
@@ -168,13 +169,29 @@ bober = darts.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    `, SpriteKind.tool, 7, 46)
-bober.setPosition(fisher.x, fisher.y)
-bober.setTrace()
-bober.angle = 190
+    `, SpriteKind.tool, fisher.x, fisher.y)
+bober.angle = 150
 bober.pow = 32
+if (bober.vy == 0 && false) {
+    hook = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . f . . . . . . . . 
+        . . . . . . . f . . . . . . . . 
+        . . . . . . . f . . . . . . . . 
+        . . . . . . . . f . . . . . . . 
+        . . . . . . . . f f . . . . . . 
+        . . . . . . . . . f . . . . . . 
+        . . . . . . f . . f . . . . . . 
+        . . . . . . f f f . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Player)
+}
 forever(function () {
-    if (bober.y > 53) {
-        bober.stopDart()
-    }
+	
 })
